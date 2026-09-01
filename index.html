@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adoptá a Julio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #fbf3ea;
+    --cream-2: #f6ead9;
+    --plum: #3f2e2e;
+    --plum-soft: #6b5555;
+    --blush: #e9a6a0;
+    --blush-deep: #d9827c;
+    --sage: #a3b995;
+    --sage-deep: #7f9770;
+    --mustard: #e7b756;
+    --white: #fffdfa;
+    --shadow: 0 18px 40px -20px rgba(63,46,46,0.35);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--plum);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  a{ color: inherit; }
+
+  /* ---------- decorative blobs ---------- */
+  .blob{
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.55;
+    z-index: 0;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position: relative;
+    z-index: 5;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 28px 6vw 0;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--plum);
+  }
+  .brand svg{ width: 30px; height: 30px; }
+  header nav a{
+    text-decoration:none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--plum-soft);
+    margin-left: 28px;
+    transition: color .2s ease;
+  }
+  header nav a:hover{ color: var(--blush-deep); }
+  header nav{ display:flex; }
+  @media (max-width: 620px){ header nav{ display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position: relative;
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items:center;
+    gap: 40px;
+    padding: 40px 6vw 90px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  @media (max-width: 900px){
+    .hero{ grid-template-columns: 1fr; padding-top:20px; padding-bottom: 60px; }
+    .hero-photo{ order: -1; }
+  }
+
+  .hero-copy .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background: var(--white);
+    padding: 7px 16px 7px 10px;
+    border-radius: 100px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--blush-deep);
+    box-shadow: var(--shadow);
+    margin-bottom: 22px;
+  }
+  .eyebrow span.dot{
+    width:8px; height:8px; border-radius:50%; background: var(--sage-deep);
+    display:inline-block;
+    animation: pulse 1.8s infinite ease-in-out;
+  }
+  @keyframes pulse{
+    0%,100%{ transform: scale(1); opacity: 1; }
+    50%{ transform: scale(1.5); opacity: 0.6; }
+  }
+
+  .hero-copy h1{
+    font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+    color: var(--plum);
+    letter-spacing: -0.01em;
+  }
+  .hero-copy h1 em{
+    font-style: italic;
+    color: var(--blush-deep);
+    font-weight: 500;
+  }
+  .hero-copy p.lede{
+    font-size: 1.18rem;
+    color: var(--plum-soft);
+    max-width: 46ch;
+    margin: 22px 0 32px;
+    line-height: 1.55;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding: 15px 28px;
+    border-radius: 100px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration:none;
+    border: none;
+    cursor:pointer;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary{
+    background: var(--blush-deep);
+    color: var(--white);
+    box-shadow: 0 14px 30px -12px rgba(217,130,124,0.7);
+  }
+  .btn-primary:hover{ transform: translateY(-3px); box-shadow: 0 18px 34px -12px rgba(217,130,124,0.8); }
+  .btn-ghost{
+    background: transparent;
+    color: var(--plum);
+    border: 2px solid var(--plum);
+    margin-left: 14px;
+  }
+  .btn-ghost:hover{ background: var(--plum); color: var(--white); }
+  .hero-actions{ display:flex; flex-wrap: wrap; gap: 8px; align-items:center; }
+  @media (max-width: 400px){ .btn-ghost{ margin-left:0; margin-top:10px; } }
+
+  .hero-photo{
+    position: relative;
+    display:flex;
+    justify-content:center;
+  }
+  .hero-photo .frame{
+    position: relative;
+    width: min(420px, 88vw);
+    aspect-ratio: 4/5;
+    border-radius: 34px 34px 100px 34px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 6px solid var(--white);
+    transform: rotate(-2deg);
+  }
+  .hero-photo .frame img{
+    width:100%; height:100%; object-fit: cover;
+    display:block;
+  }
+  .hero-photo .tag{
+    position:absolute;
+    bottom: -18px;
+    right: 10px;
+    background: var(--mustard);
+    color: var(--plum);
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-style: italic;
+    padding: 10px 22px;
+    border-radius: 100px;
+    box-shadow: var(--shadow);
+    transform: rotate(4deg);
+    font-size: 1rem;
+  }
+
+  /* ---------- stats strip ---------- */
+  .stats-wrap{ position: relative; z-index:3; padding: 0 6vw; max-width: 1240px; margin: 0 auto; }
+  .stats{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    background: var(--white);
+    border-radius: 26px;
+    padding: 28px 20px;
+    box-shadow: var(--shadow);
+  }
+  @media (max-width: 780px){ .stats{ grid-template-columns: repeat(2,1fr); } }
+  .stat{ text-align:center; padding: 6px 8px; }
+  .stat .icon{ font-size: 1.8rem; display:block; margin-bottom: 8px; }
+  .stat .label{ font-weight: 800; font-size: 0.95rem; color: var(--plum); }
+  .stat .sub{ font-size: 0.82rem; color: var(--plum-soft); margin-top:2px; }
+
+  /* ---------- story section ---------- */
+  .story{
+    position: relative;
+    max-width: 900px;
+    margin: 110px auto 90px;
+    padding: 0 6vw;
+    text-align:center;
+  }
+  .story h2{
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    margin-bottom: 26px;
+  }
+  .story p{
+    font-size: 1.12rem;
+    line-height: 1.75;
+    color: var(--plum-soft);
+    margin: 0 0 18px;
+  }
+  .story .signature{
+    font-family:'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--blush-deep);
+    margin-top: 26px;
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 12px;
+    justify-content:center;
+    margin-top: 34px;
+  }
+  .chip{
+    background: var(--cream-2);
+    border: 2px solid var(--sage);
+    color: var(--sage-deep);
+    font-weight: 800;
+    font-size: 0.9rem;
+    padding: 9px 18px;
+    border-radius: 100px;
+  }
+
+  /* ---------- gallery ---------- */
+  .gallery-section{
+    position: relative;
+    background: var(--white);
+    padding: 100px 6vw 120px;
+    border-radius: 60px 60px 0 0;
+    box-shadow: 0 -20px 50px -30px rgba(63,46,46,0.2);
+  }
+  .gallery-head{
+    max-width: 700px;
+    margin: 0 auto 60px;
+    text-align:center;
+  }
+  .gallery-head h2{ font-size: clamp(1.9rem,3.6vw,2.6rem); }
+  .gallery-head p{ color: var(--plum-soft); margin-top: 14px; font-size: 1.05rem; }
+
+  .polaroid-grid{
+    max-width: 1180px;
+    margin: 0 auto;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 46px 30px;
+  }
+  @media (max-width: 980px){ .polaroid-grid{ grid-template-columns: repeat(3,1fr); gap:40px 22px; } }
+  @media (max-width: 680px){ .polaroid-grid{ grid-template-columns: repeat(2,1fr); gap:34px 18px; } }
+
+  .polaroid{
+    background: var(--white);
+    border: 1px solid rgba(63,46,46,0.06);
+    padding: 10px 10px 26px;
+    box-shadow: 0 16px 30px -18px rgba(63,46,46,0.4);
+    border-radius: 4px;
+    position: relative;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .polaroid img{
+    width:100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display:block;
+    border-radius: 2px;
+  }
+  .polaroid:hover{
+    transform: translateY(-8px) rotate(0deg) !important;
+    box-shadow: 0 26px 40px -18px rgba(63,46,46,0.45);
+    z-index: 2;
+  }
+  .polaroid .tape{
+    position:absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 64px;
+    height: 26px;
+    background: rgba(233,166,160,0.75);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  }
+  .polaroid.tape-sage .tape{ background: rgba(163,185,149,0.75); }
+  .polaroid.tape-mustard .tape{ background: rgba(231,183,86,0.8); }
+
+  .polaroid:nth-child(4n+1){ transform: rotate(-3deg); }
+  .polaroid:nth-child(4n+2){ transform: rotate(2deg); }
+  .polaroid:nth-child(4n+3){ transform: rotate(-1.5deg); }
+  .polaroid:nth-child(4n){ transform: rotate(3deg); }
+
+  /* ---------- adopt CTA ---------- */
+  .adopt{
+    position: relative;
+    background: var(--plum);
+    color: var(--cream);
+    padding: 110px 6vw;
+    text-align:center;
+    overflow:hidden;
+  }
+  .adopt::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 12% 20%, rgba(233,166,160,0.25), transparent 45%),
+      radial-gradient(circle at 88% 78%, rgba(163,185,149,0.22), transparent 45%);
+  }
+  .adopt-inner{ position:relative; max-width: 640px; margin:0 auto; }
+  .adopt h2{
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--white);
+  }
+  .adopt p{
+    color: rgba(251,243,234,0.8);
+    font-size: 1.1rem;
+    margin: 20px 0 36px;
+    line-height: 1.6;
+  }
+  .adopt .btn-primary{
+    background: var(--mustard);
+    color: var(--plum);
+    box-shadow: 0 14px 30px -10px rgba(231,183,86,0.5);
+  }
+  .adopt .note{
+    margin-top: 22px;
+    font-size: 0.85rem;
+    color: rgba(251,243,234,0.55);
+  }
+
+  footer{
+    text-align:center;
+    padding: 30px 6vw 40px;
+    color: var(--plum-soft);
+    font-size: 0.9rem;
+    background: var(--plum);
+  }
+  footer strong{ color: var(--cream); }
+</style>
+</head>
+<body>
+
+<!-- decorative background blobs -->
+<div class="blob" style="width:340px;height:340px;background:var(--blush);top:-120px;right:-100px;"></div>
+<div class="blob" style="width:260px;height:260px;background:var(--sage);top:420px;left:-120px;opacity:0.4;"></div>
+<div class="blob" style="width:200px;height:200px;background:var(--mustard);top:120px;left:38%;opacity:0.3;"></div>
+
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="38" r="16" fill="#d9827c"/>
+      <circle cx="14" cy="20" r="7" fill="#d9827c"/>
+      <circle cx="50" cy="20" r="7" fill="#d9827c"/>
+      <circle cx="22" cy="9" r="6" fill="#d9827c"/>
+      <circle cx="42" cy="9" r="6" fill="#d9827c"/>
+    </svg>
+    Julio
+  </div>
+  <nav>
+    <a href="#historia">Su historia</a>
+    <a href="#album">Álbum</a>
+    <a href="#adoptar">Adoptar</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow"><span class="dot"></span> Buscando familia en Buenos Aires</span>
+    <h1>Adoptá a<br><em>Julio</em></h1>
+    <p class="lede">Lo rescatamos en Florencio Varela y desde ese día no paró de mover la cola. Ahora busca un sillón, una familia y una vida entera para portarse bien (a veces).</p>
+    <div class="hero-actions">
+      <a href="#adoptar" class="btn btn-primary">Quiero conocer a Julio</a>
+      <a href="#album" class="btn btn-ghost">Ver sus fotos</a>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <div class="frame">
+      <img src="img/julio.jpeg" alt="Julio mirando a cámara" loading="lazy">
+    </div>
+    <span class="tag">¡Hola, soy Julio!</span>
+  </div>
+</section>
+
+<div class="stats-wrap">
+  <div class="stats">
+    <div class="stat">
+      <span class="icon">🐾</span>
+      <div class="label">Tamaño mediano</div>
+      <div class="sub">Cruza cariñosa</div>
+    </div>
+    <div class="stat">
+      <span class="icon">🦴</span>
+      <div class="label">Sociable</div>
+      <div class="sub">Con perros y personas</div>
+    </div>
+    <div class="stat">
+      <span class="icon">🎾</span>
+      <div class="label">Energía media-alta</div>
+      <div class="sub">Ama los paseos largos</div>
+    </div>
+    <div class="stat">
+      <span class="icon">💛</span>
+      <div class="label">100% mimoso</div>
+      <div class="sub">Experto en apoyar la cabeza</div>
+    </div>
+  </div>
+</div>
+
+<section class="story" id="historia">
+  <h2>Mi historia</h2>
+  <p>¡Hola! Soy Julio. Me encontraron y rescataron en Florencio Varela, y desde entonces ando en busca de algo simple: un lugar fijo donde dormir la siesta y alguien que me rasque atrás de las orejas todos los días.</p>
+  <p>Soy curioso, compañero de paseos por la plaza, y se me da bien poner cara de bueno cuando hay algo rico cerca. Me llevo bien con otros perros, disfruto conocer gente nueva y ya aprendí que las mantitas del sillón son mías.</p>
+  <p>Lo único que me falta para que mi historia tenga el final feliz que merezco... sos vos.</p>
+  <p class="signature">— Julio 🐾</p>
+  <div class="chips">
+    <span class="chip">Le encanta el pasto</span>
+    <span class="chip">Buena onda con otros perros</span>
+    <span class="chip">Fanático de las siestas</span>
+    <span class="chip">Ya sabe pasear con correa</span>
+  </div>
+</section>
+
+<section class="gallery-section" id="album">
+  <div class="gallery-head">
+    <h2>Un poco de mi álbum</h2>
+    <p>Plazas, paseos, siestas y algún que otro evento social. Así es mi vida hoy.</p>
+  </div>
+  <div class="polaroid-grid">
+    <div class="polaroid"><div class="tape"></div><img src="img/julio1.jpeg" alt="Julio en la plaza" loading="lazy"></div>
+    <div class="polaroid tape-sage"><div class="tape"></div><img src="img/julio2.jpeg" alt="Julio sentado" loading="lazy"></div>
+    <div class="polaroid tape-mustard"><div class="tape"></div><img src="img/julio3.jpeg" alt="Julio en la cocina" loading="lazy"></div>
+    <div class="polaroid"><div class="tape"></div><img src="img/julio4.jpeg" alt="Julio en un evento" loading="lazy"></div>
+    <div class="polaroid tape-sage"><div class="tape"></div><img src="img/julio5.jpeg" alt="Julio recostado" loading="lazy"></div>
+    <div class="polaroid tape-mustard"><div class="tape"></div><img src="img/julio6.jpeg" alt="Julio oliendo el aire" loading="lazy"></div>
+    <div class="polaroid"><div class="tape"></div><img src="img/julio7.jpeg" alt="Julio mirando hacia arriba" loading="lazy"></div>
+    <div class="polaroid tape-sage"><div class="tape"></div><img src="img/julio8.jpeg" alt="Julio en el lavadero" loading="lazy"></div>
+    <div class="polaroid tape-mustard"><div class="tape"></div><img src="img/julio9.jpeg" alt="Julio en el sillón" loading="lazy"></div>
+    <div class="polaroid"><div class="tape"></div><img src="img/julio10.jpeg" alt="Julio con pañuelo" loading="lazy"></div>
+    <div class="polaroid tape-sage"><div class="tape"></div><img src="img/julio11.jpeg" alt="Julio de perfil" loading="lazy"></div>
+    <div class="polaroid tape-mustard"><div class="tape"></div><img src="img/julio12.jpeg" alt="Julio somnoliento" loading="lazy"></div>
+    <div class="polaroid"><div class="tape"></div><img src="img/julio13.jpeg" alt="Julio con arnés" loading="lazy"></div>
+    <div class="polaroid tape-sage"><div class="tape"></div><img src="img/julio14.jpeg" alt="Julio de cerca" loading="lazy"></div>
+    <div class="polaroid tape-mustard"><div class="tape"></div><img src="img/julio15.jpeg" alt="Julio en el sillón mirando de costado" loading="lazy"></div>
+  </div>
+</section>
+
+<section class="adopt" id="adoptar">
+  <div class="adopt-inner">
+    <h2>¿Le das un hogar a Julio?</h2>
+    <p>Contanos un poco sobre vos y tu casa, y coordinamos para que se conozcan. Julio ya tiene las ganas — solo le falta la familia.</p>
+    <a href="mailto:adoptaajulio@ejemplo.com?subject=Quiero%20adoptar%20a%20Julio" class="btn btn-primary">Escribir para adoptarlo</a>
+    <div class="note">Reemplazá este email o agregá tu WhatsApp/Instagram de contacto.</div>
+  </div>
+</section>
+
+<footer>
+  Gracias por darle una oportunidad a <strong>Julio</strong> 🐾
+</footer>
+
+</body>
+</html>
